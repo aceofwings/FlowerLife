@@ -27,7 +27,9 @@ function setCanvas(width,height){
 function resize(width,height){
 
 }
-
+Math.degrees = function(radians) {
+  return radians * 180 / Math.PI;
+};
 //returns the center of the canvas
 function centerofCanvas(){
     return {
@@ -66,14 +68,16 @@ function fireworkTick(){
 	    circle = newCircle();
 	    
 
-	    theta = 360.0 / section(interation)  ;
+	    theta = 360.0 / 6  ;
 	    loca = (circles.length - 1)  * theta;
 
+	    console.log(Math.cos() * (180/Math.PI))
 	    
-	    addX = circle.radius *  Math.cos(loca);
-	    addY = circle.radius *  Math.sin(loca);
-	    console.log(circles.length)
-	    console.log(theta)
+	    addX = circle.radius *  Math.cos((loca * Math.PI) /180 );
+	    addY = circle.radius *  Math.sin((loca * Math.PI / 180));
+	    console.log("Circle "  + circles.length + "  TransLate " +addX + " : " + addY + " Theta " + theta
+			+ " Loca "  + loca );
+
 
 	    circle.position.x = anchorCircle.position.x + addX;
 	    circle.position.y = anchorCircle.position.y + addY;
