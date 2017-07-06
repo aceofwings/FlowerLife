@@ -9,10 +9,10 @@ var interation;
 
 
 var settings = {
-    maxCircles : 6,
+    maxCircles : 36,
     frameRate: 60,
-    gencircle: 1000
-}
+    gencircle: 250
+};
 
 //fetch the browsers animation frame function. 
 window.requestAnimFrame= function(callback){
@@ -47,16 +47,11 @@ function fireworkTick(){
     
     ctx.clearRect(0,0,canvas.width,canvas.height);
     requestAnimFrame(fireworkTick);
-
-    now = Date.now()
-
-   
+    now = Date.now();
     elasped = now - then;
     lastgen = now - nextCircle;
     if(elasped > fps){
 	then = now - (elasped % fps);
-
-
 	// lets add a circle
 	if(settings.gencircle < lastgen){
 	    if (circles.length >= section(interation)){
@@ -64,17 +59,13 @@ function fireworkTick(){
 	    }
 	    
 	    nextCircle = now;
-	    
 	    circle = newCircle();
-	    
-
-	    theta = 360.0 / 6  ;
+	    theta = 360.0 / numOfCircles(interation)  ;
 	    loca = (circles.length - 1)  * theta;
 
-	    console.log(Math.cos() * (180/Math.PI))
 	    
-	    addX = circle.radius *  Math.cos((loca * Math.PI) /180 );
-	    addY = circle.radius *  Math.sin((loca * Math.PI / 180));
+	    addX = (interation - 1) * circle.radius *  Math.cos((loca * Math.PI) /180 );
+	    addY = (interation - 1) * circle.radius *  Math.sin((loca * Math.PI / 180));
 	    console.log("Circle "  + circles.length + "  TransLate " +addX + " : " + addY + " Theta " + theta
 			+ " Loca "  + loca );
 
@@ -116,8 +107,11 @@ function setup(){
 function section(number){
     temp1 = Math.pow(number,3);
     temp2 = Math.pow(number-1,3);
+    return temp1 - temp2
+}
 
-    return temp1 - temp2 
+function numOfCircles(tier){
+    return section(tier) - section(tier - 1);
 }
 function  update(){
 
