@@ -6,12 +6,12 @@ var fps, startTime, now, next, elasped;
 var nextCircle;
 var anchorCircle;
 var interation; 
-
+var verticescount = 0;
 
 var settings = {
     maxCircles : 36,
     frameRate: 60,
-    gencircle: 250
+    gencircle: 1000
 };
 
 //fetch the browsers animation frame function. 
@@ -39,6 +39,8 @@ function centerofCanvas(){
     
 }
 
+xDegrees = function(loca){ return Math.cos((loca * Math.PI / 180));};
+yDegrees = function(loca){ return Math.sin((loca*Math.PI /180));};
 function fireworkTick(){
     
     if (circles.length > settings.maxCircles){
@@ -57,28 +59,30 @@ function fireworkTick(){
 	    if (circles.length >= section(interation)){
 		interation ++ ;
 	    }
+
 	    
 	    nextCircle = now;
+	    
 	    circle = newCircle();
-	    theta = 360.0 / numOfCircles(interation)  ;
-	    loca = (circles.length - 1)  * theta;
-
+	      
+	    theta = 360 / numOfCircles(interation);
+	    offset = theta * circles.length;
 	    
-	    addX = (interation - 1) * circle.radius *  Math.cos((loca * Math.PI) /180 );
-	    addY = (interation - 1) * circle.radius *  Math.sin((loca * Math.PI / 180));
-	    console.log("Circle "  + circles.length + "  TransLate " +addX + " : " + addY + " Theta " + theta
-			+ " Loca "  + loca );
+	    if (offset % 60 == 0){
+		verticescount ++ ;
+		console.log(verticescount);
+		if(vertices.length == 6){
+		    verticescount = 0;
+		}
 
+		
+	    }
 
-	    circle.position.x = anchorCircle.position.x + addX;
-	    circle.position.y = anchorCircle.position.y + addY;
+	    pos = calpos(verticescount, circles, interation, anchorCircle);
+	    console.log(pos);
+	    circle.position.x = pos.y ;
+	    circle.position.y = pos.x ;
 	    circles.push(circle);
-	   
-
-	    
-	
-	    
-	    
 	}
 
 	for (circle in circles){
@@ -104,6 +108,36 @@ function setup(){
     anchorCircle = circle;
 }
 
+function calpos(current, circles,interation,anchorCircle){
+    position = {  x : 0, y: 0};
+    verts = vertices(interation, anchorCircle);
+    vert1 = verts[current % 6];
+    vert2 = verts[(current + 1) % 6];
+    out = (circles.length ) % interation;
+    t = .50
+    position.x = ((1- t) * vert1.x) + (t * vert2.x)  ;
+    position.y = ((1- t) * vert1.y) + (t * vert2.y)  ;
+    return position;
+}
+
+function vertices(interation, anchorCircle){
+    points = [];
+
+    
+    x = anchorCircle.position.x;
+    y = anchorCircle.position.y;
+
+    radius = anchorCircle.radius * (interation - 1);
+
+    for ( i = 0 ; i < 360; i += 60){
+	point = {x: 0 , y: 0 };
+	point.x = x + radius * xDegrees(i);
+	point.y = y + radius * yDegrees(i);
+	points.push(point);
+    }
+    
+    return points;
+}
 function section(number){
     temp1 = Math.pow(number,3);
     temp2 = Math.pow(number-1,3);
