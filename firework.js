@@ -7,7 +7,8 @@ var nextCircle;
 var anchorCircle;
 var interation; 
 var verticescount = 0;
-
+var defaultvector = {x : 0, y: 25};
+var currentvectorheading = [0,25];
 var settings = {
     maxCircles : 36,
     frameRate: 60,
@@ -55,6 +56,7 @@ function fireworkTick(){
     if(elasped > fps){
 	then = now - (elasped % fps);
 	// lets add a circle
+
 	if(settings.gencircle < lastgen){
 	    if (circles.length >= section(interation)){
 		interation ++ ;
@@ -65,23 +67,15 @@ function fireworkTick(){
 	    
 	    circle = newCircle();
 	      
-	    theta = 360 / numOfCircles(interation);
-	    offset = theta * circles.length;
 	    
-	    if (offset % 60 == 0){
-		verticescount ++ ;
-		console.log(verticescount);
-		if(vertices.length == 6){
-		    verticescount = 0;
-		}
+	    console.log(interation);
 
-		
-	    }
+	    pos = calpos( circles, interation, anchorCircle);
 
-	    pos = calpos(verticescount, circles, interation, anchorCircle);
-	    console.log(pos);
-	    circle.position.x = pos.y ;
-	    circle.position.y = pos.x ;
+	    
+	    
+	    circle.position.x = pos.x ;
+	    circle.position.y = pos.y ;
 	    circles.push(circle);
 	}
 
@@ -108,17 +102,24 @@ function setup(){
     anchorCircle = circle;
 }
 
-function calpos(current, circles,interation,anchorCircle){
+function calpos(circles,interation,anchorCircle){
     position = {  x : 0, y: 0};
-    verts = vertices(interation, anchorCircle);
-    vert1 = verts[current % 6];
-    vert2 = verts[(current + 1) % 6];
-    out = (circles.length ) % interation;
-    t = .50
-    position.x = ((1- t) * vert1.x) + (t * vert2.x)  ;
-    position.y = ((1- t) * vert1.y) + (t * vert2.y)  ;
+
+    radius = interation * 25;
+
+    if ( circles.length % interation == 0 ){
+	rotatevector = rotate(0,0,currentvectorheading[0], currentvectorheading[1], 60 );
+	currentvectorheading = rotatevector;
+	position.x = circles[0].position.x + currentvectorheading[0] ;
+	position.y = circles[0].position.y + currentvectorheading[1] ;
+
+    }else{
+	
+    }
+
     return position;
 }
+
 
 function vertices(interation, anchorCircle){
     points = [];
@@ -139,13 +140,23 @@ function vertices(interation, anchorCircle){
     return points;
 }
 function section(number){
-    temp1 = Math.pow(number,3);
-    temp2 = Math.pow(number-1,3);
+    temp1 = Math.pow(number + 1,3);
+    temp2 = Math.pow(number,3);
     return temp1 - temp2
 }
 
 function numOfCircles(tier){
     return section(tier) - section(tier - 1);
+}
+
+
+function rotate(cx, cy, x, y, angle) {
+    var radians = (Math.PI / 180) * angle,
+        cos = Math.cos(radians),
+        sin = Math.sin(radians),
+        nx = (cos * (x - cx)) + (sin * (y - cy)) + cx,
+        ny = (cos * (y - cy)) - (sin * (x - cx)) + cy;
+    return [nx, ny];
 }
 function  update(){
 
