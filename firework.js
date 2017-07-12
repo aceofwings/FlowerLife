@@ -3,14 +3,15 @@ var canvas = document.getElementById("draw");
 var ctx = canvas.getContext("2d");
 var circles = [];
 var fps, startTime, now, next, elasped;
-var nextCircle;
+var nextCircle
+var interationchange = false;
 var anchorCircle;
 var interation; 
 var verticescount = 0;
 var defaultvector = {x : 0, y: 25};
 var currentvectorheading = [0,25];
 var settings = {
-    maxCircles : 36,
+    maxCircles : 35,
     frameRate: 60,
     gencircle: 1000
 };
@@ -58,8 +59,9 @@ function fireworkTick(){
 	// lets add a circle
 
 	if(settings.gencircle < lastgen){
-	    if (circles.length >= section(interation)){
+	    if (circles.length >= section(interation) - 1){
 		interation ++ ;
+		interationchange = true;
 	    }
 
 	    
@@ -107,16 +109,30 @@ function calpos(circles,interation,anchorCircle){
 
     radius = interation * 25;
 
-    if ( circles.length % interation == 0 ){
+    if ( interationchange){
+	interationchange = false;
+	lastCirclePos = circles[circles.length -1 ].position;
+	position.x = lastCirclePos.x + currentvectorheading[0] ;
+	position.y = lastCirclePos.y + currentvectorheading[1]  ;
 	rotatevector = rotate(0,0,currentvectorheading[0], currentvectorheading[1], 60 );
 	currentvectorheading = rotatevector;
-	position.x = circles[0].position.x + currentvectorheading[0] ;
-	position.y = circles[0].position.y + currentvectorheading[1] ;
+    }
+    else if  ( circles.length  % interation == 0 ){
+	lastCirclePos = circles[circles.length -1 ].position;
+	rotatevector = rotate(0,0,currentvectorheading[0], currentvectorheading[1], 60 );
+	currentvectorheading = rotatevector;
+	position.x = lastCirclePos.x + currentvectorheading[0] ;
+	position.y = lastCirclePos.y + currentvectorheading[1]  ;
+
 
     }else{
 	
+	lastCirclePos = circles[circles.length-1].position;
+	position.x = lastCirclePos.x + (currentvectorheading[0]);
+	position.y = lastCirclePos.y + (currentvectorheading[1]);
     }
-
+    
+    
     return position;
 }
 
@@ -142,11 +158,11 @@ function vertices(interation, anchorCircle){
 function section(number){
     temp1 = Math.pow(number + 1,3);
     temp2 = Math.pow(number,3);
-    return temp1 - temp2
+    return temp1 - temp2;
 }
 
 function numOfCircles(tier){
-    return section(tier) - section(tier - 1);
+    return section(tier) - section(tier - 1) ;
 }
 
 
