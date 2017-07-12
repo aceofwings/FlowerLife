@@ -11,9 +11,9 @@ var verticescount = 0;
 var defaultvector = {x : 0, y: 25};
 var currentvectorheading = [0,25];
 var settings = {
-    maxCircles : 35,
+    maxCircles : 90,
     frameRate: 60,
-    gencircle: 1000
+    gencircle: 0
 };
 
 //fetch the browsers animation frame function. 
@@ -41,13 +41,25 @@ function centerofCanvas(){
     
 }
 
-xDegrees = function(loca){ return Math.cos((loca * Math.PI / 180));};
-yDegrees = function(loca){ return Math.sin((loca*Math.PI /180));};
-function fireworkTick(){
+function generatelife(){
+
+    while ( circles.length < settings.maxCircles){
+
+	if (circles.length >= section(interation) - 1){
+	    interation ++ ;
+	    interationchange = true;	    
+	}
+
+	circle = newCircle();
+	pos = calpos( circles, interation, anchorCircle);
+	circle.position.x = pos.x ;
+	circle.position.y = pos.y ;
+	circles.push(circle);
+    }
     
-    if (circles.length > settings.maxCircles){
-	return ;
-    } 
+}
+
+function fireworkTick(){
     
     ctx.clearRect(0,0,canvas.width,canvas.height);
     requestAnimFrame(fireworkTick);
@@ -58,28 +70,7 @@ function fireworkTick(){
 	then = now - (elasped % fps);
 	// lets add a circle
 
-	if(settings.gencircle < lastgen){
-	    if (circles.length >= section(interation) - 1){
-		interation ++ ;
-		interationchange = true;
-	    }
-
-	    
-	    nextCircle = now;
-	    
-	    circle = newCircle();
-	      
-	    
-	    console.log(interation);
-
-	    pos = calpos( circles, interation, anchorCircle);
-
-	    
-	    
-	    circle.position.x = pos.x ;
-	    circle.position.y = pos.y ;
-	    circles.push(circle);
-	}
+	
 
 	for (circle in circles){
 	    drawCircle(circles[circle],ctx);
@@ -102,6 +93,7 @@ function setup(){
     interation = 1;
     circles.push(circle);
     anchorCircle = circle;
+    generatelife();
 }
 
 function calpos(circles,interation,anchorCircle){
