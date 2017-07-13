@@ -11,9 +11,11 @@ var verticescount = 0;
 var defaultvector = {x : 0, y: 25};
 var currentvectorheading = [0,25];
 var settings = {
-    maxCircles : 90,
-    frameRate: 60,
-    gencircle: 0
+    maxCircles : section(8) - 1 ,
+    frameRate: 120,
+    gencircle: 0,
+    animation: bloomAnimation,
+    layers: 8
 };
 
 //fetch the browsers animation frame function. 
@@ -71,7 +73,7 @@ function fireworkTick(){
 	then = now - (elasped % fps);
 
 	//animation logic goes here
-	cycleAnimation.tick(circles);
+	settings.animation.tick(circles);
 
 	
 	for (circle in circles){
@@ -86,7 +88,7 @@ function setup(){
     fps = (1000/settings.frameRate);
     setCanvas(window.innerWidth,window.innerHeight);
     then = Date.now();
-    center = centerofCanvas()
+    center = centerofCanvas();
     startTime = then;
     nextCircle = then;
     circle = newCircle();
@@ -96,6 +98,8 @@ function setup(){
     circles.push(circle);
     anchorCircle = circle;
     generatelife();
+    settings.animation.setup(circles, {layers: settings.layers, sectfunc: section});
+    
 }
 
 function calpos(circles,interation,anchorCircle){

@@ -31,17 +31,51 @@ var cycleAnimation = {
 	    }else{
 		this.state.color = 'black';
 	    }
-
-	
-
 	circle = circles[Math.abs(this.state.circleCount)];
 	circle.color = this.state.color;
 //	console.log(this.state.circleCount);
 	this.state.circleCount += this.state.flipped;
-
     },
-    state:{ circleCount : 0 ,flipped : 1, color: 'black'}
+    state:{ circleCount : 0 ,flipped : 1, color: 'black'},
+    setup: function(circles,options){
+	
+    }
 }
+var bloomAnimation = {
+    tick: function(circles){
+
+	var color = getRandomColor();
+	
+	for(i = 0; i < this.sections.length; i++){
+	    for (c = 0 ; c < this.sections[i].length; c++){
+		this.sections[i][c].color = this.state.detailsforSection[i].color;
+
+	    }
+	}
+	
+	
+    },
+    state:{ circleCount : 0 ,flipped : 1, detailsforSection: []},
+    setup: function(circles, options){
+	var temp = [];
+	var section = 0;
+	for ( var i = 0; i < circles.length; i++){
+
+	    temp.push(circles[i]);
+	    if ( i > options['sectfunc'](section) -3){		
+		section ++ ;
+		this.sections.push(temp);
+		this.state.detailsforSection.push({color: getRandomColor()});
+		temp = [];
+	   
+	       }
+	}
+		
+    },
+    sections: []
+    
+}
+
 
 function getRandomColor() {
   var letters = '0123456789ABCDEF';
