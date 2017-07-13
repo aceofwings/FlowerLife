@@ -43,24 +43,33 @@ var cycleAnimation = {
 }
 var bloomAnimation = {
     tick: function(circles){
-
+	this.state.cycleI++;
 	var color = getRandomColor();
 	
-	for(i = 0; i < this.sections.length; i++){
+	for(i = 1; i < this.sections.length; i++){
 	    for (c = 0 ; c < this.sections[i].length; c++){
 		this.sections[i][c].color = this.state.detailsforSection[i].color;
-
 	    }
+	}
+	if (this.state.cycleI > this.state.cycle){
+	    for(i = 1 ; i < this.sections.length; i++){
+		this.state.detailsforSection[this.sections.length - i].color = this.state.detailsforSection[this.sections.length - i - 1].color ;
+		this.state.detailsforSection[0].color = color;
+		this.sections[0][0].color = color;
+		
+	    }
+	    
+	   this.state.cycleI = 0
 	}
 	
 	
+	
     },
-    state:{ circleCount : 0 ,flipped : 1, detailsforSection: []},
+    state:{ cycleI : 0 ,cycle : 6, detailsforSection: []},
     setup: function(circles, options){
 	var temp = [];
 	var section = 0;
 	for ( var i = 0; i < circles.length; i++){
-
 	    temp.push(circles[i]);
 	    if ( i > options['sectfunc'](section) -3){		
 		section ++ ;

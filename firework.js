@@ -11,11 +11,11 @@ var verticescount = 0;
 var defaultvector = {x : 0, y: 25};
 var currentvectorheading = [0,25];
 var settings = {
-    maxCircles : section(8) - 1 ,
+    maxCircles : section(11) - 1 ,
     frameRate: 120,
     gencircle: 0,
     animation: bloomAnimation,
-    layers: 8
+    layers: 11
 };
 
 //fetch the browsers animation frame function. 
