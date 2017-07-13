@@ -9,13 +9,13 @@ var anchorCircle;
 var interation; 
 var verticescount = 0;
 var defaultvector = {x : 0, y: 25};
-var currentvectorheading = [0,25];
+var currentvectorheading = [0,10];
 var settings = {
-    maxCircles : section(11) - 1 ,
-    frameRate: 120,
+    maxCircles : section(50) - 1 ,
+    frameRate: 600,
     gencircle: 0,
     animation: bloomAnimation,
-    layers: 11
+    layers: 50
 };
 
 //fetch the browsers animation frame function. 
