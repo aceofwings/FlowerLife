@@ -54,8 +54,8 @@ function generatelife(){
 
 	circle = newCircle();
 	pos = calpos( circles, interation, anchorCircle);
-	circle.position.x = pos.x ;
-	circle.position.y = pos.y ;
+	circle.position.x =  (0.5 + pos.x) | 0;
+	circle.position.y = (0.5 + pos.y) | 0 ;
 	circles.push(circle);
     }
     
@@ -63,7 +63,7 @@ function generatelife(){
 
 function fireworkTick(){
     
-    ctx.fillRect(0,0,canvas.width,canvas.height);
+    //
 
     requestAnimFrame(fireworkTick);
     now = Date.now();
@@ -95,6 +95,7 @@ function setup(){
     circle.position.x = center.x;
     circle.position.y = center.y;
     interation = 1;
+    ctx.fillRect(0,0,canvas.width,canvas.height);
     circles.push(circle);
     anchorCircle = circle;
     generatelife();

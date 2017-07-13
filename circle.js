@@ -43,10 +43,7 @@ var cycleAnimation = {
 //Animation radially from inward to outwards
 var bloomAnimation = {
     tick: function(circles){
-	this.state.cycleI++;
 	var color = getRandomColor();
-	
-	
 	//increment tier colors outward. The inner most tier will start with a random color
 	
 	    for(i = 1 ; i < this.sections.length; i++){
@@ -56,10 +53,6 @@ var bloomAnimation = {
 		
 		
 	    }
-	   this.state.cycleI = 0
-	
-	
-	
     },
     state:{ cycleI : 0 ,cycle : 1, detailsforSection: []},
     setup: function(circles, options){
