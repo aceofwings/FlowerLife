@@ -61,17 +61,19 @@ function generatelife(){
 
 function fireworkTick(){
     
-    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
     requestAnimFrame(fireworkTick);
     now = Date.now();
     elasped = now - then;
     lastgen = now - nextCircle;
     if(elasped > fps){
 	then = now - (elasped % fps);
-	// lets add a circle
+
+	//animation logic goes here
+	cycleAnimation.tick(circles);
 
 	
-
 	for (circle in circles){
 	    drawCircle(circles[circle],ctx);
 	}
@@ -116,9 +118,7 @@ function calpos(circles,interation,anchorCircle){
 	position.x = lastCirclePos.x + currentvectorheading[0] ;
 	position.y = lastCirclePos.y + currentvectorheading[1]  ;
 
-
     }else{
-	
 	lastCirclePos = circles[circles.length-1].position;
 	position.x = lastCirclePos.x + (currentvectorheading[0]);
 	position.y = lastCirclePos.y + (currentvectorheading[1]);
