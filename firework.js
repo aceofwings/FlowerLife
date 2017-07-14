@@ -9,7 +9,7 @@ var anchorCircle;
 var interation; 
 var verticescount = 0;
 var defaultvector = {x : 0, y: 25};
-var currentvectorheading = [0,6];
+var currentvectorheading = [0,2];
 
 //Various Settings for changing the visual properties of the shape.
 //Framerate - How fast you want to refresh
@@ -18,7 +18,7 @@ var currentvectorheading = [0,6];
 //layers - Note change this for now to the amount of layers you think should be worked on.
 
 var settings = {
-    maxCircles : section(70) - 1 ,
+    circleRadius: 2,
     frameRate: 60,
     gencircle: 0,
     animation: bloomAnimation,
@@ -51,8 +51,8 @@ function centerofCanvas(){
 }
 
 function generatelife(){
-
-    while ( circles.length < settings.maxCircles){
+    maxCircles =  section(settings.layers) - 1 ;
+    while ( circles.length < maxCircles){
 
 	if (circles.length >= section(interation) - 1){
 	    interation ++ ;
@@ -60,6 +60,7 @@ function generatelife(){
 	}
 
 	circle = newCircle();
+	circle.radius = settings.circleRadius;
 	pos = calpos( circles, interation, anchorCircle);
 	circle.position.x = Math.round(pos.x);
 	circle.position.y = Math.round(pos.y);
@@ -82,7 +83,7 @@ function fireworkTick(){
 
 	settings.animation.drawCircles(ctx);
 	//for (circle in circles){
-	  //  drawCircle(circles[circle],ctx);
+	  // drawCircle(circles[circle],ctx);
 	//}
 
 	
