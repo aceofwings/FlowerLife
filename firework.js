@@ -9,13 +9,20 @@ var anchorCircle;
 var interation; 
 var verticescount = 0;
 var defaultvector = {x : 0, y: 25};
-var currentvectorheading = [0,10];
+var currentvectorheading = [0,6];
+
+//Various Settings for changing the visual properties of the shape.
+//Framerate - How fast you want to refresh
+//MaxCircles - an integer of your choice. Use the section function to generate full rows.
+//Animation- the animation effect you want to apply.
+//layers - Note change this for now to the amount of layers you think should be worked on.
+
 var settings = {
-    maxCircles : section(50) - 1 ,
-    frameRate: 600,
+    maxCircles : section(70) - 1 ,
+    frameRate: 60,
     gencircle: 0,
     animation: bloomAnimation,
-    layers: 50
+    layers: 70
 };
 
 //fetch the browsers animation frame function. 
@@ -54,8 +61,8 @@ function generatelife(){
 
 	circle = newCircle();
 	pos = calpos( circles, interation, anchorCircle);
-	circle.position.x =  (0.5 + pos.x) | 0;
-	circle.position.y = (0.5 + pos.y) | 0 ;
+	circle.position.x = Math.round(pos.x);
+	circle.position.y = Math.round(pos.y);
 	circles.push(circle);
     }
     
@@ -63,9 +70,7 @@ function generatelife(){
 
 function fireworkTick(){
     
-    //
-
-    requestAnimFrame(fireworkTick);
+    
     now = Date.now();
     elasped = now - then;
     lastgen = now - nextCircle;
@@ -75,13 +80,15 @@ function fireworkTick(){
 	//animation logic goes here
 	settings.animation.tick(circles);
 
-	
-	for (circle in circles){
-	    drawCircle(circles[circle],ctx);
-	}
+	settings.animation.drawCircles(ctx);
+	//for (circle in circles){
+	  //  drawCircle(circles[circle],ctx);
+	//}
 
 	
     }
+
+    window.requestAnimationFrame(fireworkTick);
 }
 
 function setup(){

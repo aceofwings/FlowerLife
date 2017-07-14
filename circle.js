@@ -1,6 +1,6 @@
 function newCircle(){
     return {
-	radius: 10,
+	radius: 6,
 	color: "#fff",
 	life : {color : 'red'},
 	position:{
@@ -80,7 +80,17 @@ var bloomAnimation = {
 	
 		
     },
-    sections: []
+    sections: [],
+    drawCircles : function(context){
+	for (var i = 0 ; i < this.sections.length  ; i++){
+	    context.beginPath();
+	    context.strokeStyle = this.state.detailsforSection[i].color
+	    for(var c = 0 ; c < this.sections[i].length  ; c ++){
+		context.arc(this.sections[i][c].position.x, this.sections[i][c].position.y, circle.radius, 0, 2 * Math.PI);
+	    }
+	    context.stroke();
+	}
+    }
     
 }
 
