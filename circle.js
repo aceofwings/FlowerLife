@@ -100,6 +100,8 @@ var ferrrisWheelAnimation ={
 	//increment tier colors outward. The inner most tier will start with a random color
 	
 	for(i = 1 ; i < this.sections.length; i++){
+	    //this.state.detailsforSection[0].color = this.state.detailsforSection[this.sections.length - 1 ].color;
+	    
 	    this.state.detailsforSection[this.sections.length - i].color = this.state.detailsforSection[this.sections.length - i - 1].color ;
 	    this.state.detailsforSection[0].color = color;
 	    this.sections[0][0].life.color = color;
@@ -111,24 +113,30 @@ var ferrrisWheelAnimation ={
     setup: function(circles, options){
 	var temp = [];
 	var section = 0;
+	for (var i =0 ; i < options['layers']   ; i++){
+	    temp = [];
+	    this.sections.push(temp);
+	    this.state.detailsforSection.push({color: getRandomColor()});
+	}
+	
 	//group circles by each tier or section. 
 	for ( var i = 0; i < circles.length; i++){
-	    temp.push(circles[i]);
-	    if ( i > options['sectfunc'](section) -3){		
+	     if ( i > options['sectfunc'](section)){		
 		section ++ ;
-		this.sections.push(temp);
-		//Details for section holds state in between ticks for each tier.
-		this.state.detailsforSection.push({color: getRandomColor()});
-		temp = [];
-	   
-	    }
+	     }
+
+	    
+	    index = i % (options['layers'] -1)
+
+	    this.sections[index].push(circles[i]);
 	}
 
+
 	    for(i = 1; i < this.sections.length; i++){
-	    for (c = 0 ; c < this.sections[i].length; c++){
+		for (c = 0 ; c < this.sections[i].length; c++){
 		//update the circles and their colors in a given section
-		this.sections[i][c].life =  this.state.detailsforSection[i];
-	    }
+		    this.sections[i][c].life =  this.state.detailsforSection[i];
+		}
 	}
 	
 		
@@ -136,12 +144,13 @@ var ferrrisWheelAnimation ={
     sections: [],
     drawCircles : function(context){
 	for (var i = 0 ; i < this.sections.length  ; i++){
-	    context.beginPath();
 	    context.strokeStyle = this.state.detailsforSection[i].color
 	    for(var c = 0 ; c < this.sections[i].length  ; c ++){
+		context.beginPath();
 		context.arc(this.sections[i][c].position.x, this.sections[i][c].position.y, circle.radius, 0, 2 * Math.PI);
+		context.stroke();
 	    }
-	    context.stroke();
+	    
 	}
     }
     

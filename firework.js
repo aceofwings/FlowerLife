@@ -8,7 +8,7 @@ var interationchange = false;
 var anchorCircle;
 var interation; 
 var verticescount = 0;
-var defaultvector = {x : 0, y: 25};
+var defaultvector = {x : 0, y: 0};
 var currentvectorheading = [0,2];
 
 //Various Settings for changing the visual properties of the shape.
@@ -19,7 +19,7 @@ var currentvectorheading = [0,2];
 
 var settings = {
     circleRadius: 2,
-    frameRate: 60,
+    frameRate: 20,
     gencircle: 0,
     animation: bloomAnimation,
     layers: 70
@@ -64,6 +64,8 @@ function generatelife(){
 	pos = calpos( circles, interation, anchorCircle);
 	circle.position.x = Math.round(pos.x);
 	circle.position.y = Math.round(pos.y);
+	//circle.position.x = pos.x;
+	//circle.position.y = pos.y;
 	circles.push(circle);
     }
     
