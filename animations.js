@@ -1,3 +1,4 @@
+
 function newCircle(){
     return {
 	radius: 6,
@@ -11,6 +12,7 @@ function newCircle(){
 }
 
 var cycleAnimation = {
+    name: "Cycle",
     tick: function(circles){
 	
 	if (circles.length - 2 < Math.abs(this.state.circleCount)){
@@ -42,10 +44,10 @@ var cycleAnimation = {
 }
 //Animation radially from inward to outwards
 var bloomAnimation = {
+    name: "Bloom",
     tick: function(circles){
 	var color = getRandomColor();
 	//increment tier colors outward. The inner most tier will start with a random color
-	
 	    for(i = 1 ; i < this.sections.length; i++){
 		this.state.detailsforSection[this.sections.length - i].color = this.state.detailsforSection[this.sections.length - i - 1].color ;
 		this.state.detailsforSection[0].color = color;
@@ -95,6 +97,7 @@ var bloomAnimation = {
 }
 
 var ferrrisWheelAnimation ={
+    name: "Ferris Wheel",
     tick: function(circles){
 	var color = getRandomColor();
 	//increment tier colors outward. The inner most tier will start with a random color
@@ -176,3 +179,10 @@ function drawCircle(circle, context){
     context.stroke();
 
 }   
+
+
+
+var Flower = {
+    animations :  [cycleAnimation, ferrrisWheelAnimation, bloomAnimation]
+};
+

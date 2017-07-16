@@ -3,7 +3,7 @@ var canvas = document.getElementById("draw");
 var ctx = canvas.getContext("2d");
 var circles = [];
 var fps, startTime, now, next, elasped;
-var nextCircle
+var nextCircle;
 var interationchange = false;
 var anchorCircle;
 var interation; 
@@ -22,7 +22,8 @@ var settings = {
     frameRate: 20,
     gencircle: 0,
     animation: bloomAnimation,
-    layers: 70
+    layers: 70,
+    pid: 0
 };
 
 //fetch the browsers animation frame function. 
@@ -50,7 +51,21 @@ function centerofCanvas(){
     
 }
 
+function settingsChanged(){
+    
+}
+
 function generatelife(){
+    circles = [];
+    circle = newCircle();
+    circle.position.x = center.x;
+    circle.position.y = center.y;
+    interation = 1;
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    circles.push(circle);
+    anchorCircle = circle;
+
+    
     maxCircles =  section(settings.layers) - 1 ;
     while ( circles.length < maxCircles){
 
@@ -69,29 +84,20 @@ function generatelife(){
 	circles.push(circle);
     }
     
-}
+}x
 
-function fireworkTick(){
-    
-    
+function fireworkTick(){ 
     now = Date.now();
     elasped = now - then;
     lastgen = now - nextCircle;
     if(elasped > fps){
 	then = now - (elasped % fps);
-
-	//animation logic goes here
 	settings.animation.tick(circles);
-
 	settings.animation.drawCircles(ctx);
-	//for (circle in circles){
-	  // drawCircle(circles[circle],ctx);
-	//}
-
-	
     }
 
-    window.requestAnimationFrame(fireworkTick);
+    settings.pid = window.requestAnimationFrame(fireworkTick);
+    console.log(settings.pid);
 }
 
 function setup(){
@@ -101,21 +107,15 @@ function setup(){
     center = centerofCanvas();
     startTime = then;
     nextCircle = then;
-    circle = newCircle();
-    circle.position.x = center.x;
-    circle.position.y = center.y;
-    interation = 1;
-    ctx.fillRect(0,0,canvas.width,canvas.height);
-    circles.push(circle);
-    anchorCircle = circle;
     generatelife();
     settings.animation.setup(circles, {layers: settings.layers, sectfunc: section});
     
 }
 
 function calpos(circles,interation,anchorCircle){
-    position = {  x : 0, y: 0};
 
+    position = {  x : 0, y: 0};
+    
     radius = interation * 25;
 
     if ( interationchange){
