@@ -9,7 +9,7 @@ var anchorCircle;
 var interation; 
 var verticescount = 0;
 var defaultvector = {x : 0, y: 0};
-var currentvectorheading = [0,2];
+
 
 //Various Settings for changing the visual properties of the shape.
 //Framerate - How fast you want to refresh
@@ -24,7 +24,8 @@ var settings = {
     animation: bloomAnimation,
     layers: 70,
     pid: 0,
-    rotationAngle: 60
+    rotationAngle: 60,
+    currentvectorheading: [0,2]
 };
 
 //fetch the browsers animation frame function. 
@@ -118,27 +119,26 @@ function calpos(circles,interation,anchorCircle){
 
     position = {  x : 0, y: 0};
     
-    radius = interation * 25;
 
     if ( interationchange){
 	interationchange = false;
 	lastCirclePos = circles[circles.length -1 ].position;
-	position.x = lastCirclePos.x + currentvectorheading[0] ;
-	position.y = lastCirclePos.y + currentvectorheading[1]  ;
-	rotatevector = rotate(0,0,currentvectorheading[0], currentvectorheading[1], settings.rotationAngle );
-	currentvectorheading = rotatevector;
+	position.x = lastCirclePos.x + settings.currentvectorheading[0] ;
+	position.y = lastCirclePos.y + settings.currentvectorheading[1]  ;
+	rotatevector = rotate(0,0,settings.currentvectorheading[0], settings.currentvectorheading[1], settings.rotationAngle );
+	settings.currentvectorheading = rotatevector;
     }
     else if  ( circles.length  % interation == 0 ){
 	lastCirclePos = circles[circles.length -1 ].position;
-	rotatevector = rotate(0,0,currentvectorheading[0], currentvectorheading[1], settings.rotationAngle );
-	currentvectorheading = rotatevector;
-	position.x = lastCirclePos.x + currentvectorheading[0] ;
-	position.y = lastCirclePos.y + currentvectorheading[1]  ;
+	rotatevector = rotate(0,0,settings.currentvectorheading[0], settings.currentvectorheading[1], settings.rotationAngle );
+	settings.currentvectorheading = rotatevector;
+	position.x = lastCirclePos.x + settings.currentvectorheading[0] ;
+	position.y = lastCirclePos.y + settings.currentvectorheading[1]  ;
 
     }else{
 	lastCirclePos = circles[circles.length-1].position;
-	position.x = lastCirclePos.x + (currentvectorheading[0]);
-	position.y = lastCirclePos.y + (currentvectorheading[1]);
+	position.x = lastCirclePos.x + (settings.currentvectorheading[0]);
+	position.y = lastCirclePos.y + (settings.currentvectorheading[1]);
     }
     
     

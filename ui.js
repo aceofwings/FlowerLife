@@ -8,7 +8,7 @@ window.onload = function(){
     var animationTypeMenu = document.getElementById("animationType");
     var angleForm = document.getElementById("angleNumber");
     var radiusForm = document.getElementById("radius");
-    
+    var spacingForm = document.getElementById("spacing");
     
     for (animation in Flower.animations){
 	var option = document.createElement("option");
@@ -17,6 +17,11 @@ window.onload = function(){
 	animationTypeMenu.add(option);	
     }
 
+    spacingForm.onchange = function(){
+	settings.currentvectorheading = [0, this.value];
+	settings.animation.deinit();
+	setup();
+    }
 
     angleForm.onchange = function(){
 	settings.rotationAngle = this.value;

@@ -40,6 +40,9 @@ var cycleAnimation = {
     state:{ circleCount : 0 ,flipped : 1, color: 'black'},
     setup: function(circles,options){
 	
+    },
+    deinit: function(){
+
     }
 }
 //Animation radially from inward to outwards
@@ -189,6 +192,6 @@ function drawCircle(circle, context){
 
 
 var Flower = {
-    animations :  [cycleAnimation, ferrrisWheelAnimation, bloomAnimation]
+    animations :  [bloomAnimation, ferrrisWheelAnimation]
 };
 
