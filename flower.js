@@ -84,7 +84,7 @@ function generatelife(){
 	circles.push(circle);
     }
     
-}x
+}
 
 function fireworkTick(){ 
     now = Date.now();
@@ -97,7 +97,7 @@ function fireworkTick(){
     }
 
     settings.pid = window.requestAnimationFrame(fireworkTick);
-    console.log(settings.pid);
+    console.log(settings.animation.name);
 }
 
 function setup(){

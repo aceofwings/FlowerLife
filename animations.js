@@ -92,6 +92,9 @@ var bloomAnimation = {
 	    }
 	    context.stroke();
 	}
+    },
+    deinit: function(){
+	this.sections = [];
     }
     
 }
@@ -155,6 +158,9 @@ var ferrrisWheelAnimation ={
 	    }
 	    
 	}
+    },
+    deinit : function(){
+	this.sections = [];
     }
     
 }
