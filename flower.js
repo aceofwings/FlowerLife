@@ -23,7 +23,8 @@ var settings = {
     gencircle: 0,
     animation: bloomAnimation,
     layers: 70,
-    pid: 0
+    pid: 0,
+    rotationAngle: 60
 };
 
 //fetch the browsers animation frame function. 
@@ -56,10 +57,8 @@ function settingsChanged(){
 }
 
 function generatelife(){
+    circles = [];
     ctx.fillRect(0,0,canvas.width,canvas.height);
-    if (circles.length != 0){
-	return;
-    }
     circle = newCircle();
     circle.position.x = center.x;
     circle.position.y = center.y;
@@ -100,7 +99,7 @@ function fireworkTick(){
     }
 
     settings.pid = window.requestAnimationFrame(fireworkTick);
-    console.log(settings.animation.name);
+
 }
 
 function setup(){
@@ -126,12 +125,12 @@ function calpos(circles,interation,anchorCircle){
 	lastCirclePos = circles[circles.length -1 ].position;
 	position.x = lastCirclePos.x + currentvectorheading[0] ;
 	position.y = lastCirclePos.y + currentvectorheading[1]  ;
-	rotatevector = rotate(0,0,currentvectorheading[0], currentvectorheading[1], 60 );
+	rotatevector = rotate(0,0,currentvectorheading[0], currentvectorheading[1], settings.rotationAngle );
 	currentvectorheading = rotatevector;
     }
     else if  ( circles.length  % interation == 0 ){
 	lastCirclePos = circles[circles.length -1 ].position;
-	rotatevector = rotate(0,0,currentvectorheading[0], currentvectorheading[1], 60 );
+	rotatevector = rotate(0,0,currentvectorheading[0], currentvectorheading[1], settings.rotationAngle );
 	currentvectorheading = rotatevector;
 	position.x = lastCirclePos.x + currentvectorheading[0] ;
 	position.y = lastCirclePos.y + currentvectorheading[1]  ;
