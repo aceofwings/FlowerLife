@@ -56,12 +56,14 @@ function settingsChanged(){
 }
 
 function generatelife(){
-    circles = [];
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    if (circles.length != 0){
+	return;
+    }
     circle = newCircle();
     circle.position.x = center.x;
     circle.position.y = center.y;
     interation = 1;
-    ctx.fillRect(0,0,canvas.width,canvas.height);
     circles.push(circle);
     anchorCircle = circle;
 
@@ -86,7 +88,8 @@ function generatelife(){
     
 }
 
-function fireworkTick(){ 
+function fireworkTick(){
+
     now = Date.now();
     elasped = now - then;
     lastgen = now - nextCircle;

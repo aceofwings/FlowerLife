@@ -13,12 +13,12 @@ window.onload = function(){
     }
 
     animationTypeMenu.onchange = function(){
-	window.cancelAnimationFrame(settings.pid);
+
 	console.log(settings.animation);
 	settings.animation.deinit();
 	settings.animation =  Flower.animations[animationTypeMenu.selectedIndex];
 	setup();
-	window.requestAnimationFrame(fireworkTick);
+
     }
     
     
