@@ -50,16 +50,13 @@ var bloomAnimation = {
     name: "Bloom",
     tick: function(circles){
 	var color = getRandomColor();
-	//increment tier colors outward. The inner most tier will start with a random color
-	    for(i = 1 ; i < this.sections.length; i++){
-		this.state.detailsforSection[this.sections.length - i].color = this.state.detailsforSection[this.sections.length - i - 1].color ;
-		this.state.detailsforSection[0].color = color;
-		this.sections[0][0].life.color = color;
-		
-		
-	    }
+	this.state.offset = (++this.state.cycle)%this.sections.length;
+	if(this.state.cycle%20 == 0) {
+		this.state.direction *= -1;
+	}
+    	this.state.detailsforSection[this.state.offset].color = color;
     },
-    state:{ cycleI : 0 ,cycle : 1, detailsforSection: []},
+    state:{ cycleI : 0 ,cycle : 1, offset: 0, direction:-1, detailsforSection: []},
     setup: function(circles, options){
 	var temp = [];
 	var section = 0;
@@ -89,7 +86,8 @@ var bloomAnimation = {
     drawCircles : function(context){
 	for (var i = 0 ; i < this.sections.length  ; i++){
 	    context.beginPath();
-	    context.strokeStyle = this.state.detailsforSection[i].color
+		// This is bad, make this better
+	    context.strokeStyle = this.state.detailsforSection[(this.sections.length + i + (this.state.direction * this.state.offset))%this.sections.length].color
 	    for(var c = 0 ; c < this.sections[i].length  ; c ++){
 		context.arc(this.sections[i][c].position.x, this.sections[i][c].position.y, circle.radius, 0, 2 * Math.PI);
 	    }
