@@ -48,6 +48,14 @@ window.onload = function(){
     }
     
     
-    
+    //Audio Visualizing
+    var AudioContext = window.AudioContext || window.webkitAudioContext
+    var audiocontext = new AudioContext();
+    var audio = document.getElementById('myAudio');
+    audio.crossOrigin = "anonymous"
+    var audioSrc = audiocontext.createMediaElementSource(audio);
+    var analyser = audiocontext.createAnalyser();
+    audioSrc.connect(analyser);
+    audio.play();
 
 }

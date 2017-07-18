@@ -79,10 +79,11 @@ function generatelife(){
 	circle = newCircle();
 	circle.radius = settings.circleRadius;
 	pos = calpos( circles, interation, anchorCircle);
-	circle.position.x = Math.round(pos.x);
-	circle.position.y = Math.round(pos.y);
-	//circle.position.x = pos.x;
-	//circle.position.y = pos.y;
+//	circle.position.x = Math.round(pos.x);
+//	circle.position.y = Math.round(pos.y);
+	circle.position.x = pos.x;
+
+	circle.position.y = pos.y;
 	circles.push(circle);
     }
     
@@ -114,12 +115,12 @@ function setup(){
     settings.animation.setup(circles, {layers: settings.layers, sectfunc: section});
     
 }
-
+//calculate the posistion of the next circle to layout by using the last one
+//the shapes can be determined by the number of vertices a shape has and dividing
+//by 360.
+//settings.rotationAngle allows to determine when to 
 function calpos(circles,interation,anchorCircle){
-
     position = {  x : 0, y: 0};
-    
-
     if ( interationchange){
 	interationchange = false;
 	lastCirclePos = circles[circles.length -1 ].position;
@@ -134,34 +135,26 @@ function calpos(circles,interation,anchorCircle){
 	settings.currentvectorheading = rotatevector;
 	position.x = lastCirclePos.x + settings.currentvectorheading[0] ;
 	position.y = lastCirclePos.y + settings.currentvectorheading[1]  ;
-
     }else{
 	lastCirclePos = circles[circles.length-1].position;
 	position.x = lastCirclePos.x + (settings.currentvectorheading[0]);
 	position.y = lastCirclePos.y + (settings.currentvectorheading[1]);
     }
-    
-    
     return position;
 }
 
-
+//calculate the rotation vetices of a hexagon.
 function vertices(interation, anchorCircle){
     points = [];
-
-    
     x = anchorCircle.position.x;
     y = anchorCircle.position.y;
-
     radius = anchorCircle.radius * (interation - 1);
-
     for ( i = 0 ; i < 360; i += 60){
 	point = {x: 0 , y: 0 };
 	point.x = x + radius * xDegrees(i);
 	point.y = y + radius * yDegrees(i);
 	points.push(point);
     }
-    
     return points;
 }
 function section(number){
@@ -174,7 +167,7 @@ function numOfCircles(tier){
     return section(tier) - section(tier - 1) ;
 }
 
-
+//rotate a point around another given point
 function rotate(cx, cy, x, y, angle) {
     var radians = (Math.PI / 180) * angle,
         cos = Math.cos(radians),

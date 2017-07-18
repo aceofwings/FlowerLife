@@ -179,18 +179,14 @@ function getRandomColor() {
   return color;
 }
 
-
+//draws a circle given a circle object
 function drawCircle(circle, context){
-
     context.beginPath();
     context.strokeStyle = circle.life.color;
     context.arc(circle.position.x, circle.position.y, circle.radius, 0, 2 * Math.PI);
     context.stroke();
-
-}   
-
-
-
+}
+//Types of animations 
 var Flower = {
     animations :  [bloomAnimation, ferrrisWheelAnimation]
 };
