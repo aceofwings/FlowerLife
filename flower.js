@@ -16,10 +16,10 @@ var verticescount = 0;
 
 var settings = {
     circleRadius: 2,
-    frameRate: 20,
+    frameRate: 60,
     gencircle: 0,
     animation: bloomAnimation,
-    layers: 70,
+    layers: 80,
     pid: 0,
     rotationAngle: 60,
     currentvectorheading: [0,2],
@@ -79,11 +79,10 @@ function generatelife(){
 	circle = newCircle();
 	circle.radius = settings.circleRadius;
 	pos = calpos( circles, interation, anchorCircle);
-//	circle.position.x = Math.round(pos.x);
-//	circle.position.y = Math.round(pos.y);
-	circle.position.x = pos.x;
-
-	circle.position.y = pos.y;
+	circle.position.x = Math.round(pos.x);
+	circle.position.y = Math.round(pos.y);
+//	circle.position.x = pos.x;
+//	circle.position.y = pos.y;
 	circles.push(circle);
     }
     
