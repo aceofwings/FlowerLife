@@ -7,6 +7,10 @@ function newCircle(){
 	position:{
 	    x: null,
 	    y: null,
+	},
+	currentpos:{
+	    x: null,
+	    y:null,
 	}
     }
 }
@@ -67,7 +71,7 @@ var bloomAnimation = {
 		section ++ ;
 		this.sections.push(temp);
 		//Details for section holds state in between ticks for each tier.
-		this.state.detailsforSection.push({color: getRandomColor()});
+		this.state.detailsforSection.push({color: getRandomColor(), mulitplier: 1});
 		temp = [];
 	   
 	    }
@@ -89,13 +93,22 @@ var bloomAnimation = {
 		// This is bad, make this better
 	    context.strokeStyle = this.state.detailsforSection[(this.sections.length + i + (this.state.direction * this.state.offset))%this.sections.length].color
 	    for(var c = 0 ; c < this.sections[i].length  ; c ++){
-		context.arc(this.sections[i][c].position.x, this.sections[i][c].position.y, circle.radius, 0, 2 * Math.PI);
+		context.arc(this.sections[i][c].currentpos.x, this.sections[i][c].currentpos.y, circle.radius, 0, 2 * Math.PI);
 	    }
 	    context.stroke();
 	}
     },
     deinit: function(){
 	this.sections = [];
+    },
+    layout: function(sounds){
+	for(section in this.sections){
+	   temp  = this.sections[section].mulitplier = Math.round((sounds[section] % .99));
+	     for(var c = 0 ; c < this.sections[section].length  ; c ++){
+		 this.sections[section][c].currentpos.x = this.sections[section][c].position.x * temp;
+		 this.sections[section][c].currentpos.y = this.sections[section][c].position.y * temp;
+            }
+	}
     }
     
 }

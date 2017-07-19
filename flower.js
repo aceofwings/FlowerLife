@@ -68,8 +68,7 @@ function generatelife(){
     interation = 1;
     circles.push(circle);
     anchorCircle = circle;
-
-    
+    console.log(section(settings.layers));
     maxCircles =  section(settings.layers) - 1 ;
     while ( circles.length < maxCircles){
 
@@ -77,7 +76,6 @@ function generatelife(){
 	    interation ++ ;
 	    interationchange = true;	    
 	}
-	
 	circle = newCircle();
 	circle.radius = settings.circleRadius;
 	pos = calpos( circles, interation, anchorCircle);
@@ -99,8 +97,8 @@ function fireworkTick(){
     if(elasped > fps){
 	then = now - (elasped % fps);
 	settings.analyser.fetchdata();
-	console.log(settings.analyser.dataArray)
         ctx.fillRect(0,0,canvas.width + 600,canvas.height + 600);
+	settings.animation.layout(settings.analyser.dataArray);
 	settings.animation.tick(circles);
 	settings.animation.drawCircles(ctx);
     }
