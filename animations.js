@@ -34,7 +34,7 @@ var cycleAnimation = {
 	    }
 	circle = circles[Math.abs(this.state.circleCount)];
 	circle.life.color = this.state.color;
-//	console.log(this.state.circleCount);
+
 	this.state.circleCount += this.state.flipped;
     },
     state:{ circleCount : 0 ,flipped : 1, color: 'black'},

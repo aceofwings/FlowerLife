@@ -99,6 +99,7 @@ function fireworkTick(){
     if(elasped > fps){
 	then = now - (elasped % fps);
 	settings.analyser.fetchdata();
+	console.log(settings.analyser.dataArray)
         ctx.fillRect(0,0,canvas.width + 600,canvas.height + 600);
 	settings.animation.tick(circles);
 	settings.animation.drawCircles(ctx);
