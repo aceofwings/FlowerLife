@@ -2,7 +2,6 @@
 
 
 window.onload = function(){
-
     var animationform = document.getElementById("animationsettings");
 
     var animationTypeMenu = document.getElementById("animationType");
@@ -46,6 +45,8 @@ window.onload = function(){
 	setup();
 
     }
+
+    
     
     
     //Audio Visualizing
@@ -57,8 +58,22 @@ window.onload = function(){
     var audioSrc = audiocontext.createMediaElementSource(audio);
    
     var analyser = audiocontext.createAnalyser();
-     audioSrc.connect(analyser);
-     audioSrc.connect(audiocontext.destination);
-    audio.play();
 
+    audioSrc.connect(analyser);
+    audioSrc.connect(audiocontext.destination);
+    analyser.dataArray = new Uint8Array(analyser.frequencyBinCount);
+    analyser.fetchdata = function(){
+	this.getByteFrequencyData(this.dataArray);
+    }
+    var bufferLength = analyser.frequencyBinCount;
+    var dataArray = new Uint8Array(bufferLength);
+    audio.play();
+    if (true){
+	attachAnalyser(analyser);
+    }else{
+	//do something else
+    }
+    setup();
+    fireworkTick();
+    
 }

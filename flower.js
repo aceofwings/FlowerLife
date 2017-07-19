@@ -8,9 +8,6 @@ var interationchange = false;
 var anchorCircle;
 var interation; 
 var verticescount = 0;
-var defaultvector = {x : 0, y: 0};
-
-
 //Various Settings for changing the visual properties of the shape.
 //Framerate - How fast you want to refresh
 //MaxCircles - an integer of your choice. Use the section function to generate full rows.
@@ -25,7 +22,9 @@ var settings = {
     layers: 70,
     pid: 0,
     rotationAngle: 60,
-    currentvectorheading: [0,2]
+    currentvectorheading: [0,2],
+    analyser: null
+    
 };
 
 //fetch the browsers animation frame function. 
@@ -57,9 +56,12 @@ function settingsChanged(){
     
 }
 
+function attachAnalyser(analyser){
+    settings.analyser = analyser;
+}
 function generatelife(){
     circles = [];
-    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.fillRect(0,0,canvas.width + 600,canvas.height + 600);
     circle = newCircle();
     circle.position.x = center.x;
     circle.position.y = center.y;
@@ -75,7 +77,7 @@ function generatelife(){
 	    interation ++ ;
 	    interationchange = true;	    
 	}
-
+	
 	circle = newCircle();
 	circle.radius = settings.circleRadius;
 	pos = calpos( circles, interation, anchorCircle);
@@ -96,6 +98,8 @@ function fireworkTick(){
     lastgen = now - nextCircle;
     if(elasped > fps){
 	then = now - (elasped % fps);
+	settings.analyser.fetchdata();
+        ctx.fillRect(0,0,canvas.width + 600,canvas.height + 600);
 	settings.animation.tick(circles);
 	settings.animation.drawCircles(ctx);
     }
@@ -190,8 +194,6 @@ window.onresize = function(event) {
 };
 
 
-setup();
-fireworkTick();
 
 
 
