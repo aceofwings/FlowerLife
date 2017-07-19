@@ -1,6 +1,7 @@
 
 <html>
   <head>
+    <header name = "Access-Control-Allow-Origin" value = "*" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <style>
       body {    
@@ -62,9 +63,11 @@
     </form>
   </div>
     <canvas id='draw'></canvas>
-    <audio  crossOrigin="anonymous" id="myAudio">
-        <source src="mov_bbb.mp4" type="video/mp4">
+
+    <audio controls id="myAudio" src="boom.mp3">
+
     </audio>
+    
     <script src="animations.js"></script>
     <script src="flower.js"></script>
     <script src="ui.js"></script>

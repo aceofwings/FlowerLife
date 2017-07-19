@@ -51,11 +51,14 @@ window.onload = function(){
     //Audio Visualizing
     var AudioContext = window.AudioContext || window.webkitAudioContext
     var audiocontext = new AudioContext();
+    audiocontext.crossOrigin = "anonymous";
     var audio = document.getElementById('myAudio');
-    audio.crossOrigin = "anonymous"
+    audio.crossOrigin = "anonymous";
     var audioSrc = audiocontext.createMediaElementSource(audio);
+   
     var analyser = audiocontext.createAnalyser();
-    audioSrc.connect(analyser);
+     audioSrc.connect(analyser);
+     audioSrc.connect(audiocontext.destination);
     audio.play();
 
 }
