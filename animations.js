@@ -102,12 +102,11 @@ var bloomAnimation = {
 	this.sections = [];
     },
     layout: function(sounds){
-
 	for(i in this.sections){
 	    temp  = this.sections[i].mulitplier = ((sounds[i] / 255.0));
 	     for(var c = 0 ; c < this.sections[i].length  ; c ++){
-		 this.sections[i][c].currentpos.x = centerofCanvas().x + Math.round(( this.sections[i][c].position.x - centerofCanvas().x) * temp );
-		 this.sections[i][c].currentpos.y = centerofCanvas().y + Math.round((this.sections[i][c].position.y - centerofCanvas().y)  * temp) ;
+		 this.sections[i][c].currentpos.x = centerofCanvas().x + Math.round(( this.sections[i][c].position.x - centerofCanvas().x) * (temp) );
+		 this.sections[i][c].currentpos.y = centerofCanvas().y + Math.round((this.sections[i][c].position.y - centerofCanvas().y)  * (temp) );
             }
 	}
     }

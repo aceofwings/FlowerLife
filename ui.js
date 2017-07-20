@@ -8,6 +8,11 @@ window.onload = function(){
     var angleForm = document.getElementById("angleNumber");
     var radiusForm = document.getElementById("radius");
     var spacingForm = document.getElementById("spacing");
+
+    //preload ui with default values
+    angleForm.value = settings.rotationAngle;
+    radiusForm.value = settings.circleRadius;
+    spacingForm.value = settings.currentvectorheading[1];
     
     for (animation in Flower.animations){
 	var option = document.createElement("option");
@@ -49,12 +54,11 @@ window.onload = function(){
     
     
     
+    
     //Audio Visualizing
     var AudioContext = window.AudioContext || window.webkitAudioContext
-    var audiocontext = new AudioContext();
-    audiocontext.crossOrigin = "anonymous";
+    var audiocontext = new AudioContext();  
     var audio = document.getElementById('myAudio');
-    audio.crossOrigin = "anonymous";
     var audioSrc = audiocontext.createMediaElementSource(audio);
     var analyser = audiocontext.createAnalyser();
     analyser.fftSize = 256
