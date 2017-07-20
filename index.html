@@ -3,7 +3,9 @@
   <head>
     <header name = "Access-Control-Allow-Origin" value = "*" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
     <style>
+      
       body {    
       margin: 0 !important;
       padding: 0 !important;
@@ -39,8 +41,22 @@
 	  <label for="animationType">Animation Type</label>
 	  <select class="form-control" id="animationType"> </select>
 	</div>
-      </div>
 
+
+	<div class="col-lg-3 col-md-3 col-sm-">
+          <div class="panel panel-default">
+            <div class="panel-heading">Music Playlist
+              <input type="button" id="loadFileXml" value="Add Song" onclick="document.getElementById('addMusic').click();" class="pull-right" />
+              <input type="file" style="display:none;" id="addMusic" name="file"/>
+            </div>
+            <div class="panel-body">
+          <ul class="list-group">
+            <li class="song list-group-item">   </li>
+          </ul>
+            </div>
+       	  </div>
+      </div>
+      </div>
       <div class="form-group row">
 	<div class="col-lg-1 col-md-2 col-sm-3">
 	  <label for="angleNumber">&#176 (Shape)</label>
