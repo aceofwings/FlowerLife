@@ -44,6 +44,8 @@ window.onload = function(){
 	}
 
 	if (immediatePlay && audio.paused){
+	    var elements = songlist.getElementsByTagName('li');
+	    songlist.removeChild(elements[0]);
 	    audio.src = srcs.shift();
 	    audio.play();
 	}

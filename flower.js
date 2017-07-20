@@ -19,7 +19,7 @@ var settings = {
     frameRate: 60,
     gencircle: 0,
     animation: bloomAnimation,
-    layers: 80,
+    layers: 100,
     pid: 0,
     rotationAngle: 60,
     currentvectorheading: [0,2],
