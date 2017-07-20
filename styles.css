@@ -1,0 +1,16 @@
+.song{
+    background-color: grey;
+}
+.list-group-item{
+    background-color: grey;
+}
+
+.panel-default > .panel-heading{
+    color: #0083ff;
+    background-color:#1a1a1a;
+}
+
+.panel-body {
+    background-color: black;
+
+}
