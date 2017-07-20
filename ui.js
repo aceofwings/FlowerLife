@@ -8,11 +8,18 @@ window.onload = function(){
     var angleForm = document.getElementById("angleNumber");
     var radiusForm = document.getElementById("radius");
     var spacingForm = document.getElementById("spacing");
+    var fileForm = document.getElementById("addMusic");
+    var audio = document.getElementById('myAudio');
 
     //preload ui with default values
     angleForm.value = settings.rotationAngle;
     radiusForm.value = settings.circleRadius;
     spacingForm.value = settings.currentvectorheading[1];
+
+
+    //file sources and other responsive UI
+    var srcs = [];
+    var songlist = document.getElementById("songlist");
     
     for (animation in Flower.animations){
 	var option = document.createElement("option");
@@ -21,6 +28,29 @@ window.onload = function(){
 	animationTypeMenu.add(option);	
     }
 
+    fileForm.onchange = function(event){
+	for (file in event.target.files){
+	    if (typeof event.target.files[file] === 'object'){
+		srcs.push(URL.createObjectURL(event.target.files[file]))
+		var li = document.createElement("li");
+		li.className = "song list-group-item";
+		li.innerHTML = event.target.files[file].name;
+		songlist.appendChild(li);
+	    }
+	}
+    }
+
+    audio.onended = function(){
+	if (srcs.length == 0){
+	    console.log("no other files in playlist");
+	}else{
+	    var song = srcs.shift();
+	    audio.src = song;
+	    audio.play();
+	}
+	
+    }
+    
     spacingForm.onchange = function(){
 	settings.currentvectorheading = [0, this.value];
 	settings.animation.deinit();
@@ -44,7 +74,6 @@ window.onload = function(){
     }
  
     animationTypeMenu.onchange = function(){	
-	console.log(settings.animation);
 	settings.animation.deinit();
 	settings.animation =  Flower.animations[animationTypeMenu.selectedIndex];
 	setup();
@@ -58,7 +87,7 @@ window.onload = function(){
     //Audio Visualizing
     var AudioContext = window.AudioContext || window.webkitAudioContext
     var audiocontext = new AudioContext();  
-    var audio = document.getElementById('myAudio');
+    
     var audioSrc = audiocontext.createMediaElementSource(audio);
     var analyser = audiocontext.createAnalyser();
     analyser.fftSize = 256
@@ -70,7 +99,7 @@ window.onload = function(){
     }
     var bufferLength = analyser.frequencyBinCount;
     var dataArray = new Uint8Array(bufferLength);
-    audio.play();
+//    audio.play();
     if (true){
 	attachAnalyser(analyser);
     }else{

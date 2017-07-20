@@ -2,7 +2,7 @@
     background-color: grey;
 }
 .list-group-item{
-    background-color: grey;
+    background-color: #1a1a1a;
 }
 
 .panel-default > .panel-heading{
@@ -13,4 +13,10 @@
 .panel-body {
     background-color: black;
 
+}
+
+
+#playlist{
+
+    position: absolute;
 }

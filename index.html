@@ -46,11 +46,11 @@
 	<div class="col-lg-3 col-md-3 col-sm-">
           <div class="panel panel-default">
             <div class="panel-heading">Music Playlist
-              <input type="button" id="loadFileXml" value="Add Song" onclick="document.getElementById('addMusic').click();" class="pull-right" />
+              <input type="button" id="loadFileXml" value="Add Song" onclick="document.getElementById('addMusic').click(); console.log(1)" class="pull-right" />
               <input type="file" style="display:none;" id="addMusic" name="file"/>
             </div>
             <div class="panel-body">
-          <ul class="list-group">
+          <ul class="list-group" id="songlist">
             <li class="song list-group-item">   </li>
           </ul>
             </div>
