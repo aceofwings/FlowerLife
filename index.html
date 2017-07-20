@@ -10,11 +10,7 @@
       margin: 0 !important;
       padding: 0 !important;
       }
-      
       .info{
-      position :absolute;
-      left: 30px;
-      top: 30px;
       color: #0083ff;
       }
       label{
@@ -23,7 +19,20 @@
       }
 </style>
   </head>
-  <div class="info container">
+      <canvas id='draw' style="position:absolute;"></canvas>
+	<div class="col-lg-3 col-md-3 col-sm-3 " id="playlist">
+          <div class="panel panel-default">
+            <div class="panel-heading">Music Playlist
+              <input type="button" id="loadFileXml" value="Add Song" onclick="document.getElementById('addMusic').click(); console.log(1)" class="pull-right" />
+              <input type="file" style="display:none;" id="addMusic" name="file"/>
+            </div>
+            <div class="panel-body">
+              <ul class="list-group" id="songlist">
+              </ul>
+            </div>
+       	  </div>
+	</div> 
+  <div class=" container info">
     <a href="https://github.com/aceofwings/FlowerLife">Check out Code on GitHub</a>
     <form id="animationsettings">
       <div class="form-group row">
@@ -31,7 +40,7 @@
 	  <label for="framerate"> Frame rate </label>
 	  <input type="text" class="form-control" id="framerate"></input>
 	</div>
-	<div class="col-lg-3 col-md-3 col-sm-">
+	<div class="col-lg-4 col-md-3 col-lg-offset-2">
 	      <audio controls id="myAudio" src="7.m4a">    </audio>
 	</div>
       </div>
@@ -41,21 +50,6 @@
 	  <label for="animationType">Animation Type</label>
 	  <select class="form-control" id="animationType"> </select>
 	</div>
-
-
-	<div class="col-lg-3 col-md-3 col-sm-">
-          <div class="panel panel-default">
-            <div class="panel-heading">Music Playlist
-              <input type="button" id="loadFileXml" value="Add Song" onclick="document.getElementById('addMusic').click(); console.log(1)" class="pull-right" />
-              <input type="file" style="display:none;" id="addMusic" name="file"/>
-            </div>
-            <div class="panel-body">
-          <ul class="list-group" id="songlist">
-            <li class="song list-group-item">   </li>
-          </ul>
-            </div>
-       	  </div>
-      </div>
       </div>
       <div class="form-group row">
 	<div class="col-lg-1 col-md-2 col-sm-3">
@@ -81,10 +75,7 @@
       <button type="submit" class="btn btn-info">Apply</button>
     </form>
   </div>
-    <canvas id='draw'></canvas>
 
-
-    
     <script src="animations.js"></script>
     <script src="flower.js"></script>
     <script src="ui.js"></script>

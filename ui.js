@@ -29,6 +29,10 @@ window.onload = function(){
     }
 
     fileForm.onchange = function(event){
+	var immediatePlay = false;
+	if (srcs.length == 0){
+	    immediatePlay = true;
+	}
 	for (file in event.target.files){
 	    if (typeof event.target.files[file] === 'object'){
 		srcs.push(URL.createObjectURL(event.target.files[file]))
@@ -38,6 +42,11 @@ window.onload = function(){
 		songlist.appendChild(li);
 	    }
 	}
+
+	if (immediatePlay && audio.paused){
+	    audio.src = srcs.shift();
+	    audio.play();
+	}
     }
 
     audio.onended = function(){
@@ -45,6 +54,8 @@ window.onload = function(){
 	    console.log("no other files in playlist");
 	}else{
 	    var song = srcs.shift();
+	    var elements = songlist.getElementsByTagName('li');
+	    songlist.removeChild(elements[0]);
 	    audio.src = song;
 	    audio.play();
 	}

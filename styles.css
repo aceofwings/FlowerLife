@@ -12,11 +12,13 @@
 
 .panel-body {
     background-color: black;
-
+    color:#0083ff;
 }
 
 
 #playlist{
 
     position: absolute;
+    right: 40px;
+    top: 20px;
 }
