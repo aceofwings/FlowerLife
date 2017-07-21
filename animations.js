@@ -53,14 +53,15 @@ var cycleAnimation = {
 var bloomAnimation = {
     name: "Bloom",
     tick: function(circles){
-	var color = getRandomColor();
+//	var color = getRandomColor();
 	this.state.offset = (++this.state.cycle)%this.sections.length;
-	if(this.state.cycle%20 == 0) {
+	
+	if(this.state.cycle% this.state.cycleChange == 0) {
 	    this.state.direction *= -1;
 	}
-    	this.state.detailsforSection[this.state.offset].color = color;
+    	
     },
-    state:{ cycleI : 0 ,cycle : 1, offset: 0, direction:-1, detailsforSection: []},
+    state:{ cycleI : 0 ,cycle : 1, offset: 0, direction:-1, detailsforSection: [], color: "#FFFFFF", cycleChange : 256},
     setup: function(circles, options){
 	var temp = [];
 	var section = 0;
@@ -108,6 +109,19 @@ var bloomAnimation = {
 		 this.sections[i][c].currentpos.y = centerofCanvas().y  + Math.round((this.sections[i][c].position.y - centerofCanvas().y)  * (temp ) );
             }
 	}
+    },coloring: function(sounds){
+	this.state.toRandom = false;
+	if (this.state.direction == -1){
+	    if (sounds[90] > 150){
+		this.state.color = getRandomColor();
+	    }
+	    this.state.detailsforSection[this.state.offset].color = shadeColor(this.state.color, (this.state.cycle / this.state.cycleChange));//this.state.color;
+	    
+	}else{
+	    this.state.detailsforSection[this.state.offset].color = getRandomColor();
+	    this.state.color = this.state.detailsforSection[0].color;
+	}
+	
     }
     
 }

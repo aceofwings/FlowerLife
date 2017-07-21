@@ -15,14 +15,14 @@ var verticescount = 0;
 //layers - Note change this for now to the amount of layers you think should be worked on.
 
 var settings = {
-    circleRadius: 2,
+    circleRadius: 0,
     frameRate: 60,
     gencircle: 0,
     animation: bloomAnimation,
     layers: 100,
     pid: 0,
     rotationAngle: 60,
-    currentvectorheading: [0,2],
+    currentvectorheading: [0,10],
     analyser: null
     
 };
@@ -98,6 +98,7 @@ function fireworkTick(){
 	settings.analyser.fetchdata();
         ctx.fillRect(0,0,canvas.width + 600,canvas.height + 600);
 	settings.animation.layout(settings.analyser.dataArray);
+	settings.animation.coloring(settings.analyser.dataArray);
 	settings.animation.tick(circles);
 	settings.animation.drawCircles(ctx);
     }
