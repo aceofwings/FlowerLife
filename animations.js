@@ -117,7 +117,6 @@ var ferrrisWheelAnimation ={
     tick: function(circles){
 	var color = getRandomColor();
 	//increment tier colors outward. The inner most tier will start with a random color
-	
 	for(i = 1 ; i < this.sections.length; i++){
 	    //this.state.detailsforSection[0].color = this.state.detailsforSection[this.sections.length - 1 ].color;
 	    this.state.detailsforSection[this.sections.length - i].color = this.state.detailsforSection[this.sections.length - i - 1].color ;
@@ -185,6 +184,12 @@ function getRandomColor() {
     color += letters[Math.floor(Math.random() * 16)];
   }
   return color;
+}
+
+
+function shadeColor(color, percent) {   
+    var f=parseInt(color.slice(1),16),t=percent<0?0:255,p=percent<0?percent*-1:percent,R=f>>16,G=f>>8&0x00FF,B=f&0x0000FF;
+    return "#"+(0x1000000+(Math.round((t-R)*p)+R)*0x10000+(Math.round((t-G)*p)+G)*0x100+(Math.round((t-B)*p)+B)).toString(16).slice(1);
 }
 
 //draws a circle given a circle object
