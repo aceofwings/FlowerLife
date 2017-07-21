@@ -103,7 +103,7 @@ window.onload = function(){
     
     var audioSrc = audiocontext.createMediaElementSource(audio);
     var analyser = audiocontext.createAnalyser();
-    analyser.fftSize = 256
+    analyser.fftSize = 256;
     audioSrc.connect(analyser);
     audioSrc.connect(audiocontext.destination);
     analyser.dataArray = new Uint8Array(analyser.frequencyBinCount);

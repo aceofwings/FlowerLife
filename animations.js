@@ -56,7 +56,7 @@ var bloomAnimation = {
 	var color = getRandomColor();
 	this.state.offset = (++this.state.cycle)%this.sections.length;
 	if(this.state.cycle%20 == 0) {
-		this.state.direction *= -1;
+	    this.state.direction *= -1;
 	}
     	this.state.detailsforSection[this.state.offset].color = color;
     },
@@ -76,8 +76,7 @@ var bloomAnimation = {
 	   
 	    }
 	}
-
-	    for(i = 1; i < this.sections.length; i++){
+	for(i = 1; i < this.sections.length; i++){
 	    for (c = 0 ; c < this.sections[i].length; c++){
 		//update the circles and their colors in a given section
 		this.sections[i][c].life =  this.state.detailsforSection[i];
@@ -105,8 +104,8 @@ var bloomAnimation = {
 	for(i in this.sections){
 	    temp  = this.sections[i].mulitplier = ((sounds[sounds.length - i] / 255.0));
 	     for(var c = 0 ; c < this.sections[i].length  ; c ++){
-		 this.sections[i][c].currentpos.x = centerofCanvas().x + Math.round(( this.sections[i][c].position.x - centerofCanvas().x) * (temp) );
-		 this.sections[i][c].currentpos.y = centerofCanvas().y + Math.round((this.sections[i][c].position.y - centerofCanvas().y)  * (temp) );
+		 this.sections[i][c].currentpos.x = centerofCanvas().x  + Math.round(( this.sections[i][c].position.x - centerofCanvas().x) * (temp) )  ;
+		 this.sections[i][c].currentpos.y = centerofCanvas().y  + Math.round((this.sections[i][c].position.y - centerofCanvas().y)  * (temp ) );
             }
 	}
     }
@@ -121,12 +120,9 @@ var ferrrisWheelAnimation ={
 	
 	for(i = 1 ; i < this.sections.length; i++){
 	    //this.state.detailsforSection[0].color = this.state.detailsforSection[this.sections.length - 1 ].color;
-	    
 	    this.state.detailsforSection[this.sections.length - i].color = this.state.detailsforSection[this.sections.length - i - 1].color ;
 	    this.state.detailsforSection[0].color = color;
 	    this.sections[0][0].life.color = color;
-	    
-	    
 	}
     },
     state:{ cycleI : 0 ,cycle : 1, detailsforSection: []},
@@ -138,16 +134,12 @@ var ferrrisWheelAnimation ={
 	    this.sections.push(temp);
 	    this.state.detailsforSection.push({color: getRandomColor()});
 	}
-	
 	//group circles by each tier or section. 
 	for ( var i = 0; i < circles.length; i++){
-	     if ( i > options['sectfunc'](section)){		
+	    if ( i > options['sectfunc'](section)){		
 		section ++ ;
-	     }
-
-	    
+	    }
 	    index = i % (options['layers'] -1)
-
 	    this.sections[index].push(circles[i]);
 	}
 
@@ -175,10 +167,15 @@ var ferrrisWheelAnimation ={
     },
     deinit : function(){
 	this.sections = [];
-    }
-    
-}
+    },
+    layout: function(sounds){
+	for (var i = 0 ; i < this.sections.length  ; i++){
+            for(var c = 0 ; c < this.sections[i].length  ; c ++){
 
+            }
+	}
+    }
+}
 
 //Returns random color in the form of hex
 function getRandomColor() {
