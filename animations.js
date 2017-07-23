@@ -110,16 +110,14 @@ var bloomAnimation = {
             }
 	}
     },coloring: function(sounds){
-	this.state.toRandom = false;
 	if (this.state.direction == -1){
-	    if (sounds[90] > 150){
+	    if (sounds[90] > 150 || sounds[65] > 240 || sounds[30] > 230){
 		this.state.color = getRandomColor();
 	    }
 	    this.state.detailsforSection[this.state.offset].color = shadeColor(this.state.color, (this.state.cycle / this.state.cycleChange));//this.state.color;
-	    
 	}else{
 	    this.state.detailsforSection[this.state.offset].color = getRandomColor();
-	    this.state.color = this.state.detailsforSection[0].color;
+
 	}
 	
     }

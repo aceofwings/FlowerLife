@@ -96,6 +96,8 @@ function fireworkTick(){
     if(elasped > fps){
 	then = now - (elasped % fps);
 	settings.analyser.fetchdata();
+	var love = settings.analyser.dataArray;
+	console.log(JSON.stringify(love));
         ctx.fillRect(0,0,canvas.width + 600,canvas.height + 600);
 	settings.animation.layout(settings.analyser.dataArray);
 	settings.animation.coloring(settings.analyser.dataArray);
