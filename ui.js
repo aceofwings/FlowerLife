@@ -93,14 +93,18 @@ window.onload = function(){
 
     }
 
-    
+    //sound cloud functionality
+
+    var SoundCloud = function(audio){
+	
+
+    }
     
     
     
     //Audio Visualizing
     var AudioContext = window.AudioContext || window.webkitAudioContext
-    var audiocontext = new AudioContext();  
-    
+    var audiocontext = new AudioContext();    
     var audioSrc = audiocontext.createMediaElementSource(audio);
     var analyser = audiocontext.createAnalyser();
     analyser.fftSize = 256;
@@ -122,4 +126,4 @@ window.onload = function(){
     fireworkTick();
     
 }
-B
+

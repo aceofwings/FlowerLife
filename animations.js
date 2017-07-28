@@ -52,6 +52,7 @@ var cycleAnimation = {
 //Animation radially from inward to outwards
 var bloomAnimation = {
     name: "Bloom",
+    settings: {},
     tick: function(circles){
 //	var color = getRandomColor();
 	this.state.offset = (++this.state.cycle)%this.sections.length;
@@ -74,7 +75,6 @@ var bloomAnimation = {
 		//Details for section holds state in between ticks for each tier.
 		this.state.detailsforSection.push({color: getRandomColor(), mulitplier: 1});
 		temp = [];
-	   
 	    }
 	}
 	for(i = 1; i < this.sections.length; i++){
@@ -83,8 +83,6 @@ var bloomAnimation = {
 		this.sections[i][c].life =  this.state.detailsforSection[i];
 	    }
 	}
-	
-		
     },
     sections: [],
     drawCircles : function(context){

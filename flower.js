@@ -18,13 +18,12 @@ var settings = {
     circleRadius: 0,
     frameRate: 60,
     gencircle: 0,
-    animation: bloomAnimation,
+    animation: waves,
     layers: 100,
     pid: 0,
     rotationAngle: 60,
     currentvectorheading: [0,10],
     analyser: null
-    
 };
 
 //fetch the browsers animation frame function. 
@@ -68,7 +67,6 @@ function generatelife(){
     interation = 1;
     circles.push(circle);
     anchorCircle = circle;
-    console.log(section(settings.layers));
     maxCircles =  section(settings.layers) - 1 ;
     while ( circles.length < maxCircles){
 
@@ -89,16 +87,14 @@ function generatelife(){
 }
 
 function fireworkTick(){
-
     now = Date.now();
     elasped = now - then;
     lastgen = now - nextCircle;
     if(elasped > fps){
 	then = now - (elasped % fps);
 	settings.analyser.fetchdata();
-	var love = settings.analyser.dataArray;
-	console.log(JSON.stringify(love));
-        ctx.fillRect(0,0,canvas.width + 600,canvas.height + 600);
+//	ctx.fillStyle = "black";
+//        ctx.fillRect(0,0,canvas.width + 600,canvas.height + 600);
 	settings.animation.layout(settings.analyser.dataArray);
 	settings.animation.coloring(settings.analyser.dataArray);
 	settings.animation.tick(circles);
@@ -117,6 +113,8 @@ function setup(){
     startTime = then;
     nextCircle = then;
     generatelife();
+    settings.animation.state.width = canvas.width;
+    settings.animation.state.height = canvas.height;
     settings.animation.setup(circles, {layers: settings.layers, sectfunc: section});
     
 }
