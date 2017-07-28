@@ -18,7 +18,7 @@ var settings = {
     circleRadius: 0,
     frameRate: 60,
     gencircle: 0,
-    animation: waves,
+    animation: bloomAnimation,
     layers: 100,
     pid: 0,
     rotationAngle: 60,

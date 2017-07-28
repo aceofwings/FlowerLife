@@ -86,6 +86,9 @@ var bloomAnimation = {
     },
     sections: [],
     drawCircles : function(context){
+	context.fillStyle = "black";
+	context.fillRect(0,0,canvas.width + 600,canvas.height + 600);
+
 	for (var i = 0 ; i < this.sections.length  ; i++){
 	    context.beginPath();
 		// This is bad, make this better
@@ -211,6 +214,6 @@ function drawCircle(circle, context){
 }
 //Types of animations 
 var Flower = {
-    animations :  [bloomAnimation, ferrrisWheelAnimation]
+    animations :  [bloomAnimation, ferrrisWheelAnimation,waves]
 };
 
