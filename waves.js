@@ -1,6 +1,6 @@
 var waves = {
     name: "Perlin Wave",
-    state : {particleAmount : 5000, width : 1000, height: 1000, period: 1/200, color : "black"},
+    state : {particleAmount : 5000, width : 1000, height: 1000, period: 1/80, color : "black"},
     tick : function(circles){
 	for(particle in this.particles){
 	    p = this.particles[particle]
